@@ -10,10 +10,11 @@ class User extends Authenticatable
     use HasFactory;
 
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'name',
-        'password',
+        'fname',
+        'fname',
+        'fname',
         'school_name',
         'region',
         'province',
@@ -35,7 +36,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function earned_badges(){
-        return $this->hasMany(BadgeEarned::class,'user_id','user_id');
+    public function earned_badges()
+    {
+        return $this->hasMany(BadgeEarned::class, 'user_id', 'user_id');
     }
 }
