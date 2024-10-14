@@ -8,7 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory;
 
     protected $table = 'users';
     protected $primaryKey = 'id';

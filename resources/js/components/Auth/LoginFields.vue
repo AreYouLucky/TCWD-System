@@ -4,7 +4,7 @@
             <v-card-text class="d-flex justify-center">
                 <section style="max-width: 360px; width: 100%;">
                     <article class="text-center text-light-blue mb-7">
-                        <v-avatar :image="`/storage/logos/logo.png`" size="85" class="ma-2" style="border: 3px solid blueviolet;"></v-avatar><br>
+                        <v-avatar :image="`/storage/logos/logo.png`" size="85" class="ma-2" style="border: 3px solid #3EB6D8;"></v-avatar><br>
                         <span class="text-h4 montserrat-black-900">
                             TCWD SYSTEM
                         </span> <br>
@@ -53,10 +53,8 @@ export default {
     },
     methods: {
         submitForm() {
-            this.playSound();
             this.loading = true
             axios.post('/login', this.fields).then(res => {
-                this.playSelect()
                 Swal.fire(
                     {
                         icon: "success",
@@ -76,9 +74,8 @@ export default {
 
             }).catch(error => {
                 this.loading = false
-                this.errors = error.response.data.errors.logs;
+                this.errors = error.response.data.logs;
                 this.err = error.response.data;
-                this.playError()
                 Swal.fire(
                     {
                         icon: "error",

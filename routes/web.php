@@ -15,3 +15,9 @@ Route::get('/logout', [App\Http\Controllers\Authentication\UserController::class
 
 
 Route::middleware(['role:PARTICIPANTS'])->group(function () {});
+
+Route::middleware(['role:ADMIN'])->group(function () {
+    Route::get('/admin-dashboard', function () {
+        return view('admin.dashboard');
+    });
+});

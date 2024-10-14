@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
-use App\Models\BadgeEarned;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\LoginHistory;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -49,9 +45,6 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            LoginHistory::create([
-                'user_id' => Auth::user()->user_id
-            ]);
             return Auth::user();
         }
     }
@@ -80,9 +73,6 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            LoginHistory::create([
-                'user_id' => Auth::user()->user_id
-            ]);
             return Auth::user();
         }
         return response()->json([
@@ -99,30 +89,5 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    public function currentUser(){
-        return DB::table('users')
-        ->select(
-            'users.user_id',
-            'users.name',
-            'users.username',
-            'users.img',
-            'users.role',
-            'users.school_name',
-            'table_region.region_name',
-            'table_province.province_name',
-            'table_municipality.municipality_name',
-        )
-        ->leftJoin('table_region', 'table_region.region_id', '=', 'users.region')
-        ->leftJoin('table_province', 'table_province.province_id', '=', 'users.province')
-        ->leftJoin('table_municipality', 'table_municipality.municipality_id', '=', 'users.city')
-        ->where('users.user_id',Auth::user()->user_id)
-        ->first();
-    }
 
-    public function userStatus(){
-     return Auth::user();
-    }
-    public function earnedBadges(){
-        return BadgeEarned::select('badge_earned.img','badges.description')->leftJoin('badges','badges.badge_id','badge_earned.badge_id')->where('badge_earned.user_id',Auth::id())->get();
-    }
 }
