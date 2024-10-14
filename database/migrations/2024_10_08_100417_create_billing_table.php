@@ -32,6 +32,7 @@ return new class extends Migration
 
             $table->float('prev_readings');
             $table->float('current_readings');
+            $table->integer('is_paid')->default(0);
 
             $table->timestamps();
         });

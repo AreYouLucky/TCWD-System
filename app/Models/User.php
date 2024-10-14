@@ -4,27 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
     protected $fillable = [
         'fname',
-        'fname',
-        'fname',
-        'school_name',
+        'mname',
+        'lname',
+        'suffix',
+        'street',
         'region',
         'province',
         'city',
         'role',
         'img',
+        'contact_no',
+        'email',
+        'meter_brand',
+        'meter_no',
         'username',
         'password',
-        'mac_id',
-        'flag_quiz',
+
     ];
 
     protected $hidden = [
@@ -36,8 +41,4 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function earned_badges()
-    {
-        return $this->hasMany(BadgeEarned::class, 'user_id', 'user_id');
-    }
 }

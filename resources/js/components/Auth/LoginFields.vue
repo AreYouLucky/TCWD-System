@@ -1,32 +1,37 @@
 <template>
     <v-form @submit.prevent="submitForm">
-        <v-card class="pa-13 card-container border border-t-xl" elevation="10"
-            width="500" rounded="xl">
-            <v-card-item class="mt-2 card-items">
-                <v-row dense class="animate__animated animate__rubberBand animate__delay-1s">
-                    <v-col class="d-flex justify-center align-center mb-4" cols="12" md="12" sm="12">
-                        <v-img :src="`/storage/logos/login_whiz.png`" height="220" contain></v-img>
-                    </v-col>
-                </v-row>
+        <v-card class="px-10 py-15 elevation-5 blur d-flex align-center" max-width="900" rounded="xl">
+            <v-card-text class="d-flex justify-center">
+                <section style="max-width: 360px; width: 100%;">
+                    <article class="text-center text-light-blue mb-7">
+                        <v-avatar :image="`/storage/logos/logo.png`" size="85" class="ma-2" style="border: 3px solid blueviolet;"></v-avatar><br>
+                        <span class="text-h4 montserrat-black-900">
+                            TCWD SYSTEM
+                        </span> <br>
+                        <v-divider class="mx-15 my-4" color="black"></v-divider>
+                    </article>
 
-                <v-text-field v-model="fields.username" class="mb-3 " label="Username" rounded="xl"
-                    :rules="[rules.required, rules.min]" prepend-inner-icon="mdi-email-outline" variant="outlined"
-                    :error-messages="err.username ? err.username[0] : ''" required></v-text-field>
+                    <article>
+                        <v-text-field v-model="fields.username" label="Username" rounded="xl" density="comfortable"
+                            :rules="[rules.required, rules.min]" prepend-inner-icon="mdi-email-outline" class="mb-2"
+                            variant="outlined" :error-messages="err.username ? err.username[0] : ''" color="blue"
+                            required></v-text-field>
 
-                <v-text-field v-model="fields.password" label="Password" :rules="[rules.required]" rounded="xl" class=""
-                    :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'"
-                    placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" variant="outlined"
-                    @click:append-inner="visible = !visible" :error-messages="err.password ? err.password[0] : ''"
-                    required></v-text-field>
-                <v-row class="px-10 mb-10 mt-2 d-flex justify-center">
-                    <v-btn block :loading="loading" class="my-5 animate__animated animate__rubberBand animate__delay-1s grow-rotate"
-                        color="light-blue" rounded="xl" size="large" type="submit">
-                        Log In
-                    </v-btn>
-                    <span class="mt-4 text-medium-emphasis register-text grow-rotate" @click="register()">Don't have an
-                        account?</span>
-                </v-row>
-            </v-card-item>
+                        <v-text-field v-model="fields.password" label="Password" :rules="[rules.required]" rounded="xl"
+                            class="" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" density="comfortable"
+                            :type="visible ? 'text' : 'password'" color="blue" placeholder="Enter your password"
+                            prepend-inner-icon="mdi-lock-outline" variant="outlined"
+                            @click:append-inner="visible = !visible"
+                            :error-messages="err.password ? err.password[0] : ''" required></v-text-field>
+                        <v-row class="ma-2 d-flex justify-center">
+                            <v-btn :loading="loading" class="my-1 px-5" color="light-blue" rounded="xl" type="submit"
+                                prepend-icon="mdi-home" width="200">
+                                Log In
+                            </v-btn>
+                        </v-row>
+                    </article>
+                </section>
+            </v-card-text>
         </v-card>
     </v-form>
 </template>
@@ -85,22 +90,6 @@ export default {
             })
 
         },
-        async playSound() {
-            const audio =  new Audio('/storage/bgm/click_button.mp3');
-            await audio.play()
-        },
-        async playError(){
-            const audio =  new Audio('/storage/bgm/error.mp3');
-            await audio.play()
-        },
-        async playSelect(){
-            const audio =  new Audio('/storage/bgm/success.mp3');
-            await audio.play()
-        },
-        register() {
-            this.$emit('setToTen');
-            this.playSound();
-        }
     },
     mounted() {
 
@@ -109,33 +98,12 @@ export default {
 </script>
 <style scoped>
 .blur {
-    background: rgba(12, 51, 84, 0.4) !important;
-    backdrop-filter: blur(2.6px);
-    -webkit-backdrop-filter: blur(2.6px);
-}
-
-.register-text {
-    font-size: .8rem;
-    cursor: pointer;
+    width: 600px;
 }
 
 @media (max-width: 500px) {
-    .card-container {
-        width: 100% !important;
-        margin: 0px !important;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-    }
-
-    .card-items {
-        padding: 0px !important;
-        margin: 0px;
-    }
-
     .blur {
-        background: rgba(12, 51, 84, 0.4) !important;
-        backdrop-filter: blur(2.6px);
-        -webkit-backdrop-filter: blur(2.6px);
+        width: 360px;
     }
 }
 </style>
