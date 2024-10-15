@@ -20,4 +20,7 @@ Route::middleware(['role:ADMIN'])->group(function () {
     Route::get('/admin-dashboard', function () {
         return view('admin.dashboard');
     });
+
+    Route::resource('/users',App\Http\Controllers\Admin\UsersListController::class);
+
 });

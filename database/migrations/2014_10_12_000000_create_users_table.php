@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('region');
             $table->integer('province');
             $table->integer('city');
+            $table->integer('barangay');
             $table->string('street');
             $table->string('role');
             $table->string('img')->nullable();

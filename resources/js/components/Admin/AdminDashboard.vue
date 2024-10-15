@@ -1,35 +1,29 @@
 <template>
-    <v-app class="bg-blue-grey-lighten-2">
+    <v-app class="bg-transparent">
         <v-layout>
             <v-navigation-drawer v-model="drawer" :rail="rail" floating
-                image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
                 class="navigations bg-blue rounded-tr-xl pa-5" elevation="8" min-width="70">
                 <v-list-item nav class="text-center  my-2">
                     <v-img :src="`/storage/logos/logo.png`" height="120" contain></v-img>
-                    <span class="text-h6 montserrat-black-900" >TCWD SYSTEM</span>
+                    <span class="text-h6 montserrat-black-900" ></span>
                     <v-divider></v-divider>
                 </v-list-item>
-                        <v-card append-icon="mdi-exit-to-app mb-5" class="mx-auto blur rounded-lg pa-2" v-bind="props"
-                            max-width="344" 
-                            rel="noopener" subtitle="Manage System"
+                        <v-card append-icon="mdi-exit-to-app" class="mx-auto bg-white rounded-lg pa-2 elevation-0 rounded-sm" v-bind="props"
+                            max-width="344"
                             title="Administrator" @click="logout = true"></v-card>
                 <v-list>
                     <v-divider>Menu</v-divider>
                     <v-list-item @click="tab = 'ONE'" prepend-icon="mdi-account"
                         :class="['px-4', 'mt-5', 'text-caption', 'rounded-xl', 'rounded-bs-xl', tab === 'ONE' ? 'bg-light-blue' : 'bg-dark']">
-                        <span class="small">Users </span>
+                        <span class="small">Users Information</span>
                     </v-list-item>
                     <v-list-item @click="tab = 'TWO'" prepend-icon="mdi-cash-register"
                         :class="['px-4', 'text-caption', 'rounded-xl', 'rounded-bs-xl', tab === 'TWO' ? 'bg-light-blue' : 'bg-dark']">
                         <span class="small">Billing </span>
                     </v-list-item>
-                    <v-list-item @click="tab = 'THREE'" prepend-icon="mdi-hand-coin"
+                    <v-list-item @click="tab = 'THREE'" prepend-icon="mdi-clipboard-list"
                         :class="['px-4', 'text-caption', 'rounded-xl', 'rounded-bs-xl', tab === 'THREE' ? 'bg-light-blue' : 'bg-dark']">
-                        <span class="small">Rate </span>
-                    </v-list-item>
-                    <v-list-item @click="tab = 'FOUR'" prepend-icon="mdi-cash-plus"
-                        :class="['px-4', 'text-caption', 'rounded-xl', 'rounded-bs-xl', tab === 'FOUR' ? 'bg-light-blue' : 'bg-dark']">
-                        <span class="small">Additional Fees </span>
+                        <span class="small">Rates and Fees </span>
                     </v-list-item>
                     <v-list-item @click="tab = 'FIVE'" prepend-icon="mdi-message-alert"
                         :class="['px-4', 'text-caption', 'rounded-xl', 'rounded-bs-xl', tab === 'FIVE' ? 'bg-light-blue' : 'bg-dark']">
@@ -40,7 +34,7 @@
             <v-main>
                 <v-container class="d-flex align-center mt-3 rounded-xl" style="width: 95%; height: 70px;">
                     <v-spacer></v-spacer>
-                    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" color="yellow"></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" color="blue"></v-app-bar-nav-icon>
                 </v-container>
                 <v-window v-model="tab">
                     <v-window-item value="ONE">
@@ -98,7 +92,8 @@
         </v-layout>
 
         <v-dialog v-model="logout" width="auto">
-            <v-card max-width="400" prepend-icon="mdi-update" rounded="xl">
+            <v-card max-width="400">
+                <v-card-title></v-card-title>
                 <v-card-text class="text-center"> Are you sure you want <br> to logout?</v-card-text>
                 <template v-slot:actions>
                     <v-spacer></v-spacer>
@@ -131,22 +126,6 @@ export default {
         }
     },
     methods: {
-        fetchCurrentUser() {
-            axios.get("/user").then((res) => {
-                this.user = res.data;
-            });
-        },
-        toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch((err) => {
-                    console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-                });
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        },
         initializeComponent(tab) {
             switch (tab) {
                 case 'TWO':
@@ -194,7 +173,6 @@ export default {
             }
         },
         initData() {
-            this.fetchCurrentUser();
         },
     },
     mounted() {

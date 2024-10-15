@@ -1,8 +1,8 @@
 <template>
     <v-layout class="layout">
-        <v-card width="100%" class="rounded-xl pt-2 elevation-2">
+        <v-card width="100%" class="rounded-xl pt-2 elevation-0">
             <v-card-title class=" d-flex justify-space-between pa-2 flex-wrap"><span class="font-weight-black">
-                    <v-icon class="mx-4">mdi-help-box-multiple</v-icon>Questions
+                    <v-icon class="mx-4">mdi-account-group</v-icon>Users
                     Section</span>
                 <div class="d-flex justify-end buttons-list">
                     <v-btn color="light-blue-darken-3" prepend-icon="mdi-plus" variant="elevated" rounded="xl"
@@ -16,23 +16,23 @@
                     <v-col cols="12" md="2" sm="3">
                         <v-select variant="outlined" label="Difficulty" v-model="difficulty" rounded="xl" hide-details
                             placeholder="all" :items="difficulties" item-value="difficulty_id" item-title="name"
-                            density="compact" @update:modelValue="fetchQuestionByDifficulty" />
+                            density="compact" @update:modelValue="fetchQuestionByDifficulty"  color="blue"/>
                     </v-col>
                     <v-col cols="12" md="4" sm="3">
                         <v-text-field v-model="search" clearable density="compact" hide-details placeholder="Search"
-                            prepend-inner-icon="mdi-magnify" rounded="xl" variant="outlined" class="ml-2" />
+                            prepend-inner-icon="mdi-magnify" rounded="xl" variant="outlined" class="ml-2" color="blue" />
                     </v-col>
                     <v-col cols="12" md="6" sm="6" class="d-flex align-center justify-end">
-                        <v-btn icon color="transparent" @click="fetchAllQuestions()" size="small">
+                        <v-btn icon color="transparent" @click="fetchAllQuestions()" size="small" variant="tonal">
                             <v-tooltip activator="parent" location="top"> Refresh </v-tooltip>
-                            <v-icon>mdi-refresh</v-icon>
+                            <v-icon color="blue">mdi-refresh</v-icon>
                         </v-btn>
                     </v-col>
                 </v-row>
             </v-card-item>
             <v-card-item class="pa-5">
                 <v-data-table :headers="headers" :items="processedQuestions" :search="search" :loading="loading" dense
-                    class="bg-transparent border-thin rounded-lg">
+                    class="bg-transparent border-thin rounded-lg" >
                     <template v-slot:item.question="{ item }">
                         <div v-html="sanitizeHTML(item.question)"></div>
                     </template>
@@ -134,37 +134,9 @@
 
 import axios from "axios";
 import Swal from "sweetalert2";
-import { ClassicEditor, Font, BlockQuote, Heading, Essentials, Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline, Paragraph, HorizontalLine, Undo, SpecialCharacters, SpecialCharactersEssentials, Indent, IndentBlock, List, Alignment } from 'ckeditor5';
-import CKEditor from '@ckeditor/ckeditor5-vue';
-import 'ckeditor5/ckeditor5.css';
-import MathType from '@wiris/mathtype-ckeditor5/dist/index.js';
-import DOMPurify from 'dompurify';
-
 export default {
-    components: {
-        ckeditor: CKEditor.component
-    },
     data() {
         return {
-            editor: ClassicEditor,
-            editorData: '<p>Hello from CKEditor 5 in Vue!</p>',
-            editorConfig: {
-                plugins: [Heading, Font, Essentials, Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline, BlockQuote, Paragraph, Undo, SpecialCharacters, SpecialCharactersEssentials, List, Indent, IndentBlock, HorizontalLine, Alignment,MathType],
-                toolbar: ['Heading', '|',
-                    {
-                        label: 'Fonts',
-                        withText: true,
-                        items: ['fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor']
-                    },
-                    {
-                        label: 'Basic Styles',
-                        withText: true,
-                        items: ['bold', 'italic', 'underline', 'strikethrough', 'code', 'subscript', 'superscript']
-                    },
-                    'SpecialCharacters', 'horizontalLine', 'blockQuote', '|', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'alignment','|', 'MathType', 'ChemType', '|', 'undo', 'redo'],
-                placeholder: 'Insert Question here...',
-                language: 'en',
-            },
             rules: {
                 required: (value) => !!value || "Required.",
                 min: (v) => v.length >= 4 || "Minimum 4 characters",
