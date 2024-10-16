@@ -17,6 +17,7 @@ class Billing extends Model
         'rate_id',
         'prev_readings',
         'current_readings',
-        'is_paid'
+        'is_paid',
+        'due_id'
     ];
 }

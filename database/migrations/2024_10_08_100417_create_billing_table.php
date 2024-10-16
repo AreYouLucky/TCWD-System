@@ -30,6 +30,10 @@ return new class extends Migration
             $table->foreign('rate_id')->references('id')->on('rates')
                 ->onDelete('cascade')->onUpdate('cascade');
 
+            $table->unsignedBigInteger('due_id');
+            $table->foreign('due_id')->references('id')->on('dues')
+                ->onDelete('cascade')->onUpdate('cascade');
+
             $table->float('prev_readings');
             $table->float('current_readings');
             $table->integer('is_paid')->default(0);
